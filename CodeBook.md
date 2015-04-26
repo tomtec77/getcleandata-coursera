@@ -47,37 +47,37 @@ either 'mean' or 'std' in the name (as read initially from `features.txt`).
   WALKING_UPSTAIRS
   
 - `variable` (character)  
-  Name of the variable whose mean is provided in column `mean_value`.
+  Name of the variable whose mean is provided in column `mean_value`.  
   meanX_tBodyAccel  
   meanY_tBodyAccel  
   meanZ_tBodyAccel  
   stdevX_tBodyAccel  
   stdevY_tBodyAccel  
   stdevZ_tBodyAccel  
-  meanX_tGravityAccel
+  meanX_tGravityAccel  
   meanY_tGravityAccel   
-  meanZ_tGravityAccel 
-  stdevX_tGravityAccel      
+  meanZ_tGravityAccel   
+  stdevX_tGravityAccel        
   stdevY_tGravityAccel  
   stdevZ_tGravityAccel  
   meanX_tBodyAccelJerk          
   meanY_tBodyAccelJerk  
-  meanZ_tBodyAccelJerk 
+  meanZ_tBodyAccelJerk  
   stdevX_tBodyAccelJerk         
   stdevY_tBodyAccelJerk     
-  stdevZ_tBodyAccelJerk 
+  stdevZ_tBodyAccelJerk  
   meanX_tBodyGyro   
   meanY_tBodyGyro  
-  meanZ_tBodyGyro 
+  meanZ_tBodyGyro  
   stdevX_tBodyGyro      
   stdevY_tBodyGyro      
-  stdevZ_tBodyGyro 
+  stdevZ_tBodyGyro  
   meanX_tBodyGyroJerk  
   meanY_tBodyGyroJerk       
-  meanZ_tBodyGyroJerk 
-  stdevX_tBodyGyroJerk  
+  meanZ_tBodyGyroJerk  
+  stdevX_tBodyGyroJerk   
   stdevY_tBodyGyroJerk  
-  stdevZ_tBodyGyroJerk 
+  stdevZ_tBodyGyroJerk  
   mean_tBodyAccelMag        
   stdev_tBodyAccelMag   
   mean_tGravityAccelMag  
@@ -88,14 +88,14 @@ either 'mean' or 'std' in the name (as read initially from `features.txt`).
   stdev_tBodyGyroMag    
   mean_tBodyGyroJerkMag     
   stdev_tBodyGyroJerkMag    
-  meanX_fBodyAccel 
+  meanX_fBodyAccel  
   meanY_fBodyAccel   
   meanZ_fBodyAccel          
   stdevX_fBodyAccel     
   stdevY_fBodyAccel  
   stdevZ_fBodyAccel          
   meanXFreq_fBodyAccel      
-  meanYFreq_fBodyAccel  
+  meanYFreq_fBodyAccel   
   meanZFreq_fBodyAccel      
   meanX_fBodyAccelJerk      
   meanY_fBodyAccelJerk  
@@ -104,7 +104,7 @@ either 'mean' or 'std' in the name (as read initially from `features.txt`).
   stdevY_fBodyAccelJerk  
   stdevZ_fBodyAccelJerk      
   meanXFreq_fBodyAccelJerk      
-  meanYFreq_fBodyAccelJerk 
+  meanYFreq_fBodyAccelJerk  
   meanZFreq_fBodyAccelJerk      
   meanX_fBodyGyro           
   meanY_fBodyGyro  
@@ -118,13 +118,15 @@ either 'mean' or 'std' in the name (as read initially from `features.txt`).
   mean_fBodyAccelMag        
   stdev_fBodyAccelMag  
   meanFreq_fBodyAccelMag  
-  mean_fBodyBodyAccelJerkMag    stdev_fBodyBodyAccelJerkMag 
-                          
-meanFreq_fBodyBodyAccelJerkMag          mean_fBodyBodyGyroMag         stdev_fBodyBodyGyroMag 
-      
-     meanFreq_fBodyBodyGyroMag      mean_fBodyBodyGyroJerkMag     stdev_fBodyBodyGyroJerkMag 
-                           
- meanFreq_fBodyBodyGyroJerkMag 
+  mean_fBodyBodyAccelJerkMag  
+  stdev_fBodyBodyAccelJerkMag  
+  meanFreq_fBodyBodyAccelJerkMag    
+  mean_fBodyBodyGyroMag     
+  stdev_fBodyBodyGyroMag   
+  meanFreq_fBodyBodyGyroMag     
+  mean_fBodyBodyGyroJerkMag  
+  stdev_fBodyBodyGyroJerkMag    
+  meanFreq_fBodyBodyGyroJerkMag 
                         
-`mean_value`: (numeric)  
+- `mean_value`: (numeric)  
   Mean value of variable listed in `variable`
