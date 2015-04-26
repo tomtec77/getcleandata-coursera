@@ -1,5 +1,5 @@
 library(plyr)
-library(dplyr)
+library(reshape2)
 
 # Start by downloading the data and storing it in a directory called data
 # which will be created if it doesn't exist
@@ -28,22 +28,28 @@ datadir <- "data/UCI HAR Dataset"
 # to extract only measurements on the mean and standard deviation for each
 # measurement, and the files in 'Inertial Signals' do not contain such data
 
-# Training set: load the features, then the labels and join everything in a
-# single dataframe. Column names for the features are read from the file
-# UCI HAR Dataset/features.txt
+# Training set: load the subject IDs, then features, then the labels and join
+# everything in a single dataframe. Column names for the features are read from
+# the file UCI HAR Dataset/features.txt
 dfnames <- read.table(paste(datadir, "features.txt", sep="/"),
                       stringsAsFactors=FALSE)
 
-dftrain <- read.table(paste(datadir, "train/X_train.txt", sep="/"),
-                      col.names=dfnames[,2])
+dftrain <- read.table(paste(datadir, "train/subject_train.txt", sep="/"),
+                      col.names="subjectID")
+dftrain <- cbind(dftrain, 
+                 read.table(paste(datadir, "train/X_train.txt", sep="/"),
+                            col.names=dfnames[,2]))
 dftrain <- cbind(dftrain,
                  read.table(paste(datadir, "train/y_train.txt", sep="/"),
                             col.names="activity_label"))
 
-# Testing set: load the features, then add the labels and finally join with the 
-# training set in a single dataframe.
-dftest <- read.table(paste(datadir, "test/X_test.txt", sep="/"),
-                     col.names=dfnames[,2])
+# Testing set: load the subject IDs, then features, then add the labels and
+# finally join with the training set in a single dataframe.
+dftest <- read.table(paste(datadir, "test/subject_test.txt", sep="/"),
+                     col.names="subjectID")
+dftest <- cbind(dftest,
+                read.table(paste(datadir, "test/X_test.txt", sep="/"),
+                           col.names=dfnames[,2]))
 dftest <- cbind(dftest,
                  read.table(paste(datadir, "test/y_test.txt", sep="/"),
                             col.names="activity_label"))
@@ -53,7 +59,8 @@ df <- rbind(dftrain, dftest)
 # Now we'll select from the combined set only those columns that correspond to
 # measurements on the mean and standard deviation for each measurement, plus the
 # activity labels.
-column.select <- sort(c(grep("mean", names(df)),
+column.select <- sort(c(1,
+                        grep("mean", names(df)),
                         grep("std", names(df)),
                         dim(df)[2]))
 df <- df[,column.select]
@@ -72,7 +79,8 @@ df$activity_label <- mapvalues(df$activity_label,
 axes <- c("X", "Y", "Z")
 vartypes <- c("mean", "stdev")
 prefix <- sort(do.call(paste0, expand.grid(vartypes, axes)))
-names(df) <- c(paste0(prefix, "_tBodyAccel"),
+names(df) <- c("subjectID",
+               paste0(prefix, "_tBodyAccel"),
                paste0(prefix, "_tGravityAccel"),
                paste0(prefix, "_tBodyAccelJerk"),
                paste0(prefix, "_tBodyGyro"),
@@ -97,3 +105,22 @@ names(df) <- c(paste0(prefix, "_tBodyAccel"),
                "mean_fBodyBodyGyroJerkMag", "stdev_fBodyBodyGyroJerkMag",
                "meanFreq_fBodyBodyGyroJerkMag",
                "activity_label")
+
+# At this point we have merged both testing and training datasets, added the
+# activity labels, selected only measurements of means and standard deviations
+# and used descriptive variable and activity names. 
+
+# Now the final step: create a second, independent tidy data set with the
+# average of each variable for each activity and each subject
+# First, melt the data to get 4 columns, using as IDs the subject ID and the
+# activity label
+dftidy <- melt(df, id.vars=c("subjectID", "activity_label"))
+
+# Create the final dataset: this one has 4 columns, the last one, named
+# 'mean_value' contains the mean value of the variable in column 'variable'
+# for the activity in 'activity_label' and the subject ID in the 1st column
+dftidy <- ddply(dftidy, .(subjectID, activity_label, variable), summarize,
+                mean_value=mean(value))
+
+# Store the tidy dataset in a text file
+write.csv(dftidy, file="data/HAR_tidy_dataset.txt", row.names=FALSE)
