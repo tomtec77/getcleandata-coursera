@@ -10,7 +10,7 @@ from the Samsung Galaxy S smartphone. The variables, the data, and any
 transformations or work performed to clean up the data are detailed in file
 `CodeBook.md`. 
 
-### Original data source
+### Original data
 
 The data for the project is downloaded from this link:
 
@@ -21,13 +21,14 @@ was obtained:
 
 http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
 
-### Data selection
-
 The downloaded file unzips into a directory called 'UCI HAR Dataset'. The 
 dataset obtained from the original experiments has been randomly partitioned
 into two sets, where 70% of the volunteers was selected for generating the
 training data and 30% the test data. These sets are in the 'test' and 'train'
 subdirectories, respectively.
+
+
+### Project goals
 
 For this project we are asked to:
 
@@ -39,5 +40,15 @@ measurement,
 5. from the data set in step 4, create a second, independent tidy data set with
 the average of each variable for each activity and each subject.
 
-For the train dataset, The 'train' subdirectory contains 
+All these steps are carried out in `run_analysis.R`.
 
+### Requirements
+
+The script requires the `plyr` and `reshape2` packages, and expects the data to
+be in a subdirectory called 'data'. If this subdirectory doesn't exist, the
+script will create it. The script also downloads and unzips the data files.
+
+### Final data set
+
+The `run_analysis.R` script creates a text file named `HAR_tidy_dataset.txt` in
+the 'data' subdirectory.
